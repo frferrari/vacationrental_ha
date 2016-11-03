@@ -22,56 +22,117 @@ and then issue commands using your preferred REST client (curl, advanced rest ..
                   404 NOT_FOUND when the listing was not found
 
 * Response msg  : When 200 OK
-                  `{
-                     "listing": {
-                       "id": "e5aba3e5-03d6-4348-bea5-5b6c6413bd6b",
-                       "contact": {
-                         "phone": "1234",
-                         "formattedPhone": "+44 1234"
-                       },
-                       "address": {
-                         "address": "",
-                         "postalCode": "80100",
-                         "countryCode": "FR",
-                         "city": "Paris",
-                         "state": "Picardie",
-                         "country": "France"
-                       },
-                       "location": {
-                         "lat": 40.0125,
-                         "lng": 1.08
-                       }
-                     }
-                   }`
+```
+{
+ "listing": {
+   "id": "e5aba3e5-03d6-4348-bea5-5b6c6413bd6b",
+   "contact": {
+     "phone": "1234",
+     "formattedPhone": "+44 1234"
+   },
+   "address": {
+     "address": "",
+     "postalCode": "80100",
+     "countryCode": "FR",
+     "city": "Paris",
+     "state": "Picardie",
+     "country": "France"
+   },
+   "location": {
+     "lat": 40.0125,
+     "lng": 1.08
+   }
+ }
+}
+```
 
 ##Add a listing given a json payload, the response will contain the id for the newly created listing
 
 * Endpoint      : POST /listing
 
-* Payload       : `{
-                    "contact": {
-                      "phone": "1234",
-                      "formattedPhone": "+44 1234"
-                    },
-                    "address": {
-                      "address": "",
-                      "postalCode": "80100",
-                      "countryCode": "FR",
-                      "city": "Paris",
-                      "state": "Picardie",
-                      "country": "France"
-                    },
-                    "location": {
-                      "lat": 40.0125,
-                      "lng": 1.08
-                    }
-                  }`
+* Payload       :
+```
+  {
+    "contact": {
+      "phone": "1234",
+      "formattedPhone": "+44 1234"
+    },
+    "address": {
+      "address": "",
+      "postalCode": "80100",
+      "countryCode": "FR",
+      "city": "Paris",
+      "state": "Picardie",
+      "country": "France"
+    },
+    "location": {
+      "lat": 40.0125,
+      "lng": 1.08
+    }
+  }
+```
 
 * Response code : 201 CREATED when the listing was successfully created
                   400 BAD_REQUEST when the listing could not be created (invalid payload)
 
-* Response msg  : When 201 CREATED
-                  `{ "id": "e5aba3e5-03d6-4348-bea5-5b6c6413bd6b" }`
+* Response when 201 CREATED
+```
+{ "id": "e5aba3e5-03d6-4348-bea5-5b6c6413bd6b" }
+```
+
+* Response when 400 BAD_REQUEST due to invalid country code
+```
+{
+   "message": {
+     "obj.address.countryCode": [
+       {
+         "msg": [
+           "error.country.iso"
+         ],
+         "args": [
+           "invalid country code"
+         ]
+       }
+     ]
+   }
+}
+```
+
+* Response when 400 BAD_REQUEST due to invalid lat or lng
+```
+{
+    "message": {
+      "obj.location.lat": [
+        {
+          "msg": [
+            "error.expected.jsnumber"
+          ],
+          "args": []
+        },
+        {
+          "msg": [
+            "error.expected.jsnumber"
+          ],
+          "args": []
+        }
+      ],
+      "obj.location.lng": [
+        {
+          "msg": [
+            "error.expected.jsnumber"
+          ],
+          "args": []
+        },
+        {
+          "msg": [
+            "error.expected.jsnumber"
+          ],
+          "args": []
+        }
+      ]
+    }
+}
+```
 
 ##Delete a listing given its id
 
@@ -84,29 +145,32 @@ and then issue commands using your preferred REST client (curl, advanced rest ..
 
 * Endpoint      : PUT /listing
 
-* Payload       : `{
-                    "id": "2a93c1a6-aa24-4636-ab39-b4bdf0572f42",
-                    "contact": {
-                      "phone": "12345",
-                      "formattedPhone": "+44 1234"
-                    },
-                    "address": {
-                      "address": "new address",
-                      "postalCode": "80100",
-                      "countryCode": "FR",
-                      "city": "Paris",
-                      "state": "Picardie",
-                      "country": "France"
-                    },
-                    "location": {
-                      "lat": 40.0128,
-                      "lng": 1.08
-                    }
-                  }`
+* Payload       :
+```
+{
+    "id": "2a93c1a6-aa24-4636-ab39-b4bdf0572f42",
+    "contact": {
+      "phone": "12345",
+      "formattedPhone": "+44 1234"
+    },
+    "address": {
+      "address": "new address",
+      "postalCode": "80100",
+      "countryCode": "FR",
+      "city": "Paris",
+      "state": "Picardie",
+      "country": "France"
+    },
+    "location": {
+      "lat": 40.0128,
+      "lng": 1.08
+    }
+    }
+```
 
 * Response code : 200 OK when the listing was successfully updated
                   404 NOT_FOUND when the listing was not found
-                  400 BAD_REQUEST when the listing could not be update (invalid payload)
+                  400 BAD_REQUEST when the listing could not be updated (invalid payload)
 
 #Results of a `sbt test` command
 
