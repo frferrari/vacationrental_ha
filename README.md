@@ -84,7 +84,7 @@ Responds with status:
 * `201` with a response body if the request was successful
 * `400` if the request was unsuccessful due to an invalid payload
 
-Example 200 with body response
+Example 201 with body response
 ``` json
 {
     "id": "e5aba3e5-03d6-4348-bea5-5b6c6413bd6b"
@@ -176,7 +176,7 @@ Payload :
       "lat": 40.0128,
       "lng": 1.08
     }
-    }
+}
 ```
 
 Responds with status:
