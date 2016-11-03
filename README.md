@@ -1,4 +1,4 @@
-#Vacation rental example
+# Vacation rental example
 
 This exercise has been developed using Scala and Play framework release 2.4 (activator 1.3.7)
 
@@ -12,17 +12,26 @@ Or run the application using
 
 and then issue commands using your preferred REST client (curl, advanced rest ...)
 
-#List of Endpoints
+#API
 
-##Get a listing given its id
+| Path                   | Supported methods | Description |
+| ---------------------- | ----------------- | ----------- |
+| `/listings/:listingId` | GET               | retrieve a listing given its id |
+| `/listing`             | POST              | Create a listing |
+| `/listing/:listingId`  | DELETE            | Delete a listing given its id |
+| `/listing`             | PUT               | Update a listing |
 
-* Endpoint      : GET /listings/:listingId
+## GET /listings/:listingId
 
-* Response code : 200 OK when the listing was successfully retrived
-                  404 NOT_FOUND when the listing was not found
+Example URL: `/listings/e5aba3e5-03d6-4348-bea5-5b6c6413bd6b`
 
-* Response msg  : When 200 OK
-```
+Responds with status:
+
+* `200` with a response body if the request was successful
+* `404` if the listing was not found
+
+Example 200 with body response
+``` json
 {
  "listing": {
    "id": "e5aba3e5-03d6-4348-bea5-5b6c6413bd6b",
@@ -46,12 +55,10 @@ and then issue commands using your preferred REST client (curl, advanced rest ..
 }
 ```
 
-##Add a listing given a json payload, the response will contain the id for the newly created listing
+## POST /listing
 
-* Endpoint      : POST /listing
-
-* Payload       :
-```
+Payload :
+``` json
   {
     "contact": {
       "phone": "1234",
@@ -72,18 +79,22 @@ and then issue commands using your preferred REST client (curl, advanced rest ..
   }
 ```
 
-* Response code : 201 CREATED when the listing was successfully created
-                  400 BAD_REQUEST when the listing could not be created (invalid payload)
+Responds with status:
 
-* Response when 201 CREATED
-```
-{ "id": "e5aba3e5-03d6-4348-bea5-5b6c6413bd6b" }
-```
+* `201` with a response body if the request was successful
+* `400` if the request was unsuccessful due to an invalid payload
 
-* Response when 400 BAD_REQUEST due to invalid country code
-```
+Example 200 with body response
+``` json
 {
-   "message": {
+    "id": "e5aba3e5-03d6-4348-bea5-5b6c6413bd6b"
+}
+```
+
+Example 400 for an invalid country code
+``` json
+{
+    "message": {
      "obj.address.countryCode": [
        {
          "msg": [
@@ -94,12 +105,12 @@ and then issue commands using your preferred REST client (curl, advanced rest ..
          ]
        }
      ]
-   }
+    }
 }
 ```
 
-* Response when 400 BAD_REQUEST due to invalid lat or lng
-```
+Example 400 for an invalid lat or lng
+``` json
 {
     "message": {
       "obj.location.lat": [
@@ -134,19 +145,19 @@ and then issue commands using your preferred REST client (curl, advanced rest ..
 }
 ```
 
-##Delete a listing given its id
+## DELETE /listing/:listingId
 
-* Endpoint      : DELETE /listing/:listingId
+Example URL: `/listing/2a93c1a6-aa24-4636-ab39-b4bdf0572f42`
 
-* Response code : 200 OK when the listing was successfully deleted
-                  404 NOT_FOUND whe the listing was not found
+Responds with status:
 
-##Update a listing
+* `200` with an empty response body if the request was successful
+* `404` if the listing was not found
 
-* Endpoint      : PUT /listing
+## UPDATE /listing
 
-* Payload       :
-```
+Payload :
+``` json
 {
     "id": "2a93c1a6-aa24-4636-ab39-b4bdf0572f42",
     "contact": {
@@ -168,11 +179,13 @@ and then issue commands using your preferred REST client (curl, advanced rest ..
     }
 ```
 
-* Response code : 200 OK when the listing was successfully updated
-                  404 NOT_FOUND when the listing was not found
-                  400 BAD_REQUEST when the listing could not be updated (invalid payload)
+Responds with status:
 
-#Results of a `sbt test` command
+* `200` with an empty response body if the request was successful
+* `404` if the listing was not found
+* `400` if the request was unsuccessful due to an invalid payload
+
+# Results of a `sbt test` command
 
 ```
 [info] ListingSpec:
