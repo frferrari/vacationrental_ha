@@ -1,0 +1,7 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+
+POST 	/listing		    controllers.ListingController.newListing
+GET     /listings/:id       controllers.ListingController.getListingById(id)
+DELETE  /listings/:id       controllers.ListingController.deleteListingById(id)
+PUT     /listing            controllers.ListingController.updateListing
