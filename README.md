@@ -110,7 +110,7 @@ and then issue commands using your preferred REST client (curl, advanced rest ..
 
 #Results of a `sbt test` command
 
-`
+```
 [info] ListingSpec:
 [info] ListingController
 [info] - should return BAD_REQUEST for a request to CREATE a listing with an invalid countryCode
@@ -122,4 +122,4 @@ and then issue commands using your preferred REST client (curl, advanced rest ..
 [info] - should return CREATED with the auto generated listing id for a request to CREATE a listing
 [info] - should return OK for a request to DELETE an existing listing given its id
 [info] - should return OK for a request to UPDATE an existing listing and should update only this listing
-`
+```
