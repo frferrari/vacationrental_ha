@@ -76,12 +76,12 @@ class ListingRepositoryActor extends Actor {
    */
   def updateListing(listing: Listing): Boolean = {
     if (listing.id.isDefined) {
-      deleteListingById(listing.id.get) match {
+      listingList.contains(listing.id.get) match {
         case true => {
           listingList(listing.id.get) = listing
           true
         }
-        case false => false
+        case _ => false
       }
     }
     else {
