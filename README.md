@@ -1,6 +1,15 @@
 # Vacation rental example
 
-This exercise has been developed using Scala and Play framework release 2.4 (activator 1.3.7)
+This exercise has been developed using Scala and Play framework release 2.4 (activator 1.3.7).
+It involves building a RESTful web service API for a Vacation Rentals properties, it has been required :
+
+- to NOT use a database
+- pay particular attention to concurrency issues. Even though the task itself could be achieved
+  without, imagine you are building for maximum reuse, performance and scalability.
+
+Based on this requirements I've choosed to store the vacation rental 'listing' in a mutable HashMap.
+An Akka actor will be used to handle the HashMap, this way I remove any problem related to concurrency
+on the HashMap and I also 'demonstrate' usage of Akka.
 
 You can run the test using
 
@@ -12,7 +21,7 @@ Or run the application using
 
 and then issue commands using your preferred REST client (curl, advanced rest ...)
 
-#API
+# API
 
 | Path                   | Supported methods | Description |
 | ---------------------- | ----------------- | ----------- |
