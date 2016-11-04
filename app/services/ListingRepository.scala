@@ -34,8 +34,7 @@ class ListingRepositoryActor extends Actor {
   /**
    * Add a listing
    * @param listing
-   * @return Success(id) when the listing was successfully added (the generated id is returned)
-   *         Failure(f) when an exception was raised
+   * @return the unique id generated for the newly added listing
    */
   def addListing(listing: Listing): String = {
     val id = UUID.randomUUID().toString
@@ -46,9 +45,8 @@ class ListingRepositoryActor extends Actor {
   /**
    * Get a listing given its id
    * @param id
-   * @return Success(Some(Listing)) when a listing was found for the given id
-   *         Success(None) when no listing was found for the given id
-   *         Failure(f) when an exception was raised
+   * @return Some(Listing)  when a listing was found for the given id
+   *         None           when no listing was found for the given id
    */
   def getListingById(id: String): Option[Listing] = {
     listingList.get(id)
@@ -57,9 +55,8 @@ class ListingRepositoryActor extends Actor {
   /**
    * Delete a listing given its id
    * @param id
-   * @return Success(true) when the listing was successfully deleted
-   *         Success(false) when the listing is unknown and could not be deleted!
-   *         Failure(f) when an exception was raised
+   * @return true  when the listing was successfully deleted
+   *         false when the listing is unknown and could not be deleted!
    */
   def deleteListingById(id: String): Boolean = {
     listingList.get(id) match {
@@ -74,9 +71,8 @@ class ListingRepositoryActor extends Actor {
   /**
    * Update a listing (remove the existing listing by id and add the updated listing)
    * @param listing
-   * @return Success(true) when successful
-   *         Success(false) when the listing is unknown
-   *         Failure(f) when an exception was raised
+   * @return true when successful
+   *         false when the listing is unknown
    */
   def updateListing(listing: Listing): Boolean = {
     if (listing.id.isDefined) {

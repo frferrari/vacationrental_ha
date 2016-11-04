@@ -25,7 +25,7 @@ and then issue commands using your preferred REST client (curl, advanced rest ..
 
 | Path                   | Supported methods | Description |
 | ---------------------- | ----------------- | ----------- |
-| `/listings/:listingId` | GET               | retrieve a listing given its id |
+| `/listings/:listingId` | GET               | Retrieve a listing given its id |
 | `/listing`             | POST              | Create a listing |
 | `/listing/:listingId`  | DELETE            | Delete a listing given its id |
 | `/listing`             | PUT               | Update a listing |
